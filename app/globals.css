@@ -1,26 +1,23 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Este es tu nuevo Archivo Maestro de Diseño (Tailwind v4)
+  Aquí definimos la paleta de colores de EscudoForex.
+*/
+@theme {
+  /* Azul principal para confianza y profesionalismo */
+  --color-escudo-primary: #004085;
+  --color-escudo-primary-dark: #002a5a;
+  --color-escudo-primary-light: #336ba5;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Gris neutro para estructura y fondos (el "hormigón" del escudo) */
+  --color-escudo-security: #6c757d;
+  --color-escudo-security-light: #adb5bd;
+  --color-escudo-security-dark: #495057;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Color de acento dorado para llamadas a la acción (botones) */
+  --color-escudo-accent: #ffc107;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Colores base */
+  --color-escudo-white: #ffffff;
+  --color-escudo-text: #212529;
 }
