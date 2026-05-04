@@ -1,14 +1,54 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { supabase } from '../../../../lib/supabase';
 import AdBanner from '../../../../components/AdBanner';
 
-export default async function ArticuloDinamico({ params }: { params: Promise<{ slug: string }> }); 
+// ==========================================
+// 1. FUNCIÓN DE METADATA (EXCLUSIVA PARA SEO)
+// ==========================================
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
 
-  // Buscamos el artículo
+  const { data: articulo } = await supabase
+    .from('articulos')
+    .select('titulo, subcategoria, imagen_portada')
+    .eq('slug', slug)
+    .single();
+
+  if (!articulo) {
+    return { title: 'Artículo no encontrado | EscudoForex' };
+  }
+
+  return {
+    title: `${articulo.titulo} | EscudoForex`,
+    description: `Aprende sobre ${articulo.subcategoria} en el mercado de divisas. Lee nuestra guía completa para traders en LATAM.`,
+    openGraph: {
+      title: articulo.titulo,
+      description: `Guía esencial sobre ${articulo.subcategoria} para traders latinoamericanos.`,
+      url: `https://www.escudoforex.com/blog/educacion/${slug}`, 
+      siteName: 'EscudoForex',
+      images: [
+        {
+          url: articulo.imagen_portada?.startsWith('http') ? articulo.imagen_portada : 'https://www.escudoforex.com/default-og.jpg',
+          width: 1200,
+          height: 630,
+        },
+      ],
+      type: 'article',
+    },
+  };
+}
+
+// ==========================================
+// 2. FUNCIÓN PRINCIPAL (EL DISEÑO VISUAL)
+// ==========================================
+export default async function ArticuloDinamico({ params }: { params: Promise<{ slug: string }> }): Promise<JSX.Element> {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+
+  // Buscamos el artículo para mostrarlo en pantalla
   const { data: articulo, error } = await supabase
     .from('articulos')
     .select('*')

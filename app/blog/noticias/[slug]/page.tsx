@@ -1,10 +1,50 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { supabase } from '../../../../lib/supabase';
 import AdBanner from '../../../../components/AdBanner';
 
-export default async function NoticiaDinamica({ params }: { params: Promise<{ slug: string }> }) ;
+// ==========================================
+// 1. FUNCIÓN DE METADATA (EXCLUSIVA PARA SEO)
+// ==========================================
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+
+  const { data: articulo } = await supabase
+    .from('articulos')
+    .select('titulo, subcategoria, imagen_portada')
+    .eq('slug', slug)
+    .single();
+
+  if (!articulo) {
+    return { title: 'Reporte no encontrado | EscudoForex' };
+  }
+
+  return {
+    title: `${articulo.titulo} | Radar de Mercado EscudoForex`,
+    description: `Análisis técnico y fundamental sobre eventos macroeconómicos. Descubre el impacto en las principales divisas de LATAM.`,
+    openGraph: {
+      title: articulo.titulo,
+      description: `Radar de Mercado: Análisis en profundidad y escenarios de volatilidad para traders institucionales.`,
+      url: `https://www.escudoforex.com/blog/noticias/${slug}`, // Cambia por tu dominio real
+      siteName: 'EscudoForex',
+      images: [
+        {
+          url: articulo.imagen_portada?.startsWith('http') ? articulo.imagen_portada : 'https://www.escudoforex.com/default-news.jpg',
+          width: 1200,
+          height: 630,
+        },
+      ],
+      type: 'article',
+    },
+  };
+}
+
+// ==========================================
+// 2. FUNCIÓN PRINCIPAL (EL DISEÑO VISUAL)
+// ==========================================
+export default async function NoticiaDinamica({ params }: { params: Promise<{ slug: string }> }): Promise<JSX.Element> {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
 
@@ -78,7 +118,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
           {/* EL CONTENIDO HTML GENERADO POR LA IA */}
           <div 
-            className="text-gray-800 text-lg leading-relaxed space-y-6 [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:text-[#0f172a] [&>h2]:mt-10 [&>h2]:mb-4 [&>h2]:border-b [&>h2]:border-gray-100 [&>h2]:pb-2 [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-escudo-primary [&>h3]:mt-8 [&>h3]:mb-3 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:my-6 [&>ul>li]:mb-2 [&>p>strong]:text-[#0f172a]"
+            className="text-gray-800 text-lg leading-relaxed space-y-6 [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:text-[#0f172a] [&>h2]:mt-10 [&>h2]:mb-4 [&>h2]:border-b [&>h2]:border-gray-100 [&>h2]:pb-2 [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-escudo-primary [&>h3]:mt-8 [&>h3]:mb-3 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:my-6 [&>ul>li]:mb-2 [&>p>strong]:text-[#0f172a] [&>p>a]:text-escudo-accent hover:[&>p>a]:underline"
             dangerouslySetInnerHTML={{ __html: articulo.contenido_html }} 
           />
 
