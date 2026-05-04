@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 // ==========================================
 // 2. FUNCIÓN PRINCIPAL (EL DISEÑO VISUAL)
 // ==========================================
-export default async function ArticuloDinamico({ params }: { params: Promise<{ slug: string }> }): Promise<JSX.Element> {
+export default async function ArticuloDinamico({ params }: { params: Promise<{ slug: string }> }): Promise<React.JSX.Element>{
   const resolvedParams = await params;
   const { slug } = resolvedParams;
 
