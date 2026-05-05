@@ -67,7 +67,7 @@ const brokersData: Record<string, any> = {
     ],
     contras: [
       "La cuenta Razor cobra comisión por lote operado.",
-      "Soporte técnico limitado durante los fines de semana.",
+      "Soporte técnico limitado durante fines de semana.",
       "No cuenta con plataforma propia (depende de terceros)."
     ],
     analisisProfundo: [
@@ -282,7 +282,7 @@ export default function ResenaBroker({ params }: { params: Promise<{ slug: strin
     }
   };
 
-  // 5. COMPONENTE CTA
+  // 5. COMPONENTE CTA (Caja de Llamada a la Acción)
   const CallToActionBox = () => (
     <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 lg:sticky lg:top-24">
       <h3 className="text-2xl font-black text-slate-900 mb-4">¿Abrir cuenta en {broker.nombre}?</h3>
@@ -363,6 +363,11 @@ export default function ResenaBroker({ params }: { params: Promise<{ slug: strin
               <h4 className="font-black text-blue-900 mb-3 text-lg flex items-center gap-2">🛡️ Nota de Seguridad</h4>
               <p className="text-blue-800/80 italic font-medium leading-relaxed">"{broker.notaSeguridad}"</p>
             </div>
+          </div>
+
+          {/* ESTO ES LO NUEVO: CTA MÓVIL (Solo visible en pantallas pequeñas) */}
+          <div className="block lg:hidden">
+            <CallToActionBox />
           </div>
 
           {/* ANÁLISIS DETALLADO */}
@@ -493,7 +498,10 @@ export default function ResenaBroker({ params }: { params: Promise<{ slug: strin
 
         {/* SIDEBAR */}
         <aside className="lg:col-span-4 space-y-8">
-          <CallToActionBox />
+          {/* ESTO ES LO NUEVO: Ocultamos el CTA original en móviles, manteniéndolo en PC */}
+          <div className="hidden lg:block">
+            <CallToActionBox />
+          </div>
           <div className="bg-slate-900 p-8 rounded-3xl text-white">
             <h4 className="font-black mb-4">¿Dudas sobre este broker?</h4>
             <p className="text-slate-400 text-xs leading-relaxed mb-6">Nuestro equipo audita mensualmente las condiciones de {broker.nombre} para asegurar que sigan cumpliendo con los estándares de LATAM.</p>

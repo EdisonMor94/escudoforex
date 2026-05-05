@@ -1,4 +1,5 @@
 import BrokerQuiz from "../components/BrokerQuiz";
+import Logo from "../components/Logo";
 import BrokerTable from "../components/BrokerTable";
 
 export default function Home() {
@@ -8,10 +9,11 @@ export default function Home() {
       {/* 1. HEADER / BARRA DE NAVEGACIÓN */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
         <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold flex items-center gap-2">
-            <span className="text-escudo-accent text-2xl md:text-3xl">🛡️</span> 
-            <span className="text-escudo-primary text-xl md:text-2xl">ESCUDO<span className="font-light">FOREX</span></span>
-          </div>
+          
+          {/* LOGO OFICIAL (SVG) */}
+          <a href="/" className="hover:opacity-90 transition-opacity">
+            <Logo className="h-10 md:h-12" />
+          </a>
           
           {/* MENÚ DE NAVEGACIÓN */}
           <div className="hidden md:flex items-center gap-6 font-medium text-gray-700">
