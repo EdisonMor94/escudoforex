@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-escudo-white text-escudo-text">
       
-{/* 1. HEADER */}
+      {/* 1. HEADER / BARRA DE NAVEGACIÓN */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
         <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="text-2xl font-bold flex items-center gap-2">
@@ -13,13 +13,11 @@ export default function Home() {
             <span className="text-escudo-primary text-xl md:text-2xl">ESCUDO<span className="font-light">FOREX</span></span>
           </div>
           
-          {/* MENÚ ACTUALIZADO */}
+          {/* MENÚ DE NAVEGACIÓN */}
           <div className="hidden md:flex items-center gap-6 font-medium text-gray-700">
-            {/* El ancla #tabla-brokers hace que baje suavemente hasta la tabla */}
             <a href="/#tabla-brokers" className="hover:text-escudo-primary transition-colors">
               Reseñas Brokers
             </a>
-            {/* Enlaces a los futuros blogs */}
             <a href="/blog/educacion" className="hover:text-escudo-primary transition-colors">
               Blog Educativo
             </a>
@@ -34,10 +32,12 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* 2. SECCIÓN: HERO (INTRODUCCIÓN PRINCIPAL) - 100% RESPONSIVO */}
+      {/* 2. SECCIÓN: HERO (INTRODUCCIÓN PRINCIPAL) */}
       <section className="bg-escudo-primary text-escudo-white py-16 md:py-32">
         <div className="container mx-auto px-6 text-center max-w-4xl">
-          <span className="text-escudo-accent font-semibold mb-4 block text-sm md:text-base">Protección para el Trader de LATAM</span>
+          <span className="text-escudo-accent font-semibold mb-4 block text-sm md:text-base">
+            Protección para el Trader de LATAM
+          </span>
           
           <h1 className="text-3xl md:text-6xl font-extrabold leading-tight mb-6 md:mb-8">
             Encuentra tu Broker de Forex Ideal. Sin Estafas. Con Reseñas Reales.
@@ -47,27 +47,32 @@ export default function Home() {
             EscudoForex es tu guía transparente en América Latina. Analizamos, calificamos y recomendamos los mejores brokers regulados basándonos en experiencias genuinas de la comunidad.
           </p>
           
-          {/* BOTONES (Apilados en móvil 'flex-col', en línea en PC 'md:flex-row') */}
+          {/* BOTONES CON ENLACES FUNCIONALES */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-            <button className="w-full md:w-auto bg-escudo-accent text-escudo-primary-dark px-8 py-4 md:px-10 rounded-full font-bold text-base md:text-lg hover:brightness-110 transition-all shadow-md">
+            <a 
+              href="#tabla-brokers" 
+              className="w-full md:w-auto bg-escudo-accent text-escudo-primary-dark px-8 py-4 md:px-10 rounded-full font-bold text-base md:text-lg hover:brightness-110 transition-all shadow-md text-center block"
+            >
               Ver Mejores Brokers
-            </button>
-            <button className="w-full md:w-auto bg-transparent border-2 border-escudo-white px-8 py-4 md:px-10 rounded-full font-medium text-base md:text-lg hover:bg-escudo-white/10 transition-all">
+            </a>
+            <a 
+              href="/blog/educacion" 
+              className="w-full md:w-auto bg-transparent border-2 border-escudo-white px-8 py-4 md:px-10 rounded-full font-medium text-base md:text-lg hover:bg-escudo-white/10 transition-all text-center block"
+            >
               Leer Últimos Blogs
-            </button>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* 3. SECCIÓN: QUIZ INTERACTIVO (FUNNEL DE VENTAS) */}
+      {/* 3. SECCIÓN: QUIZ INTERACTIVO (FUNNEL) */}
       <section className="bg-gray-50 py-12 border-b border-gray-200">
         <div className="container mx-auto px-6">
           <BrokerQuiz />
         </div>
       </section>
 
-{/* 4. TABLA GENERAL DE BROKERS */}
-      {/* Añadimos el id="tabla-brokers" y scroll-mt-24 para que el header no tape el título */}
+      {/* 4. TABLA GENERAL DE BROKERS */}
       <section id="tabla-brokers" className="container mx-auto px-6 py-16 scroll-mt-24">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-escudo-primary mb-4">
@@ -80,7 +85,7 @@ export default function Home() {
         <BrokerTable />
       </section>
 
-      {/* 5. SECCIÓN: FOOTER (AVISOS LEGALES Y COPYRIGHT) */}
+      {/* 5. SECCIÓN: FOOTER (PIE DE PÁGINA) */}
       <footer className="bg-escudo-security-dark text-escudo-white/80 py-10">
         <div className="container mx-auto px-6 text-center">
           <p>&copy; {new Date().getFullYear()} EscudoForex.com - Todos los derechos reservados.</p>
